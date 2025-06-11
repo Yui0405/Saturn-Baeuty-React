@@ -1,0 +1,58 @@
+[
+    {
+      "name": "Find Comfort Hydrating Body Lotion Mini",
+      "price": 17,
+      "image": "/images/find confort.jpg",
+      "category": "skincare",
+      "rating": 4.8
+  },
+  {
+      "name": "Touch Up Kit",
+      "price": 32,
+      "image": "/images/touchup-kit.jpg",
+      "category": "makeup",
+      "rating": 4.5
+  },
+  {
+      "name": "Blot & Glow Touch-Up Kit",
+      "price": 28,
+      "image": "/images/blot-kit.jpg",
+      "category": "tools",
+      "rating": 4.7
+  },
+  {
+      "name": "Universal Volumizing Mascara",
+      "price": 20,
+      "image": "/images/mascara.jpg",
+      "category": "makeup",
+      "rating": 4.6
+  },
+  {
+      "name": "Stay Vulnerable Glossy Lip Balm",
+      "price": 17,
+      "image": "/images/glossy-balm.jpg",
+      "category": "lipcare",
+      "rating": 4.9
+  },
+  {
+      "name": "Silky Touch Highlighter",
+      "price": 24,
+      "image": "/images/highlighter.jpg",
+      "category": "makeup",
+      "rating": 4.4
+  },
+  {
+      "name": "Kind Words Matte Lipstick",
+      "price": 20,
+      "image": "/images/kindwords.jpg",
+      "category": "makeup",
+      "rating": 4.9
+  },
+  {
+      "name": "Warm Wishes Effortless Bronzer Stick",
+      "price": 28,
+      "image": "/images/warmwishes.jpg",
+      "category": "lipcare",
+      "rating": 5
+  }
+  ]
