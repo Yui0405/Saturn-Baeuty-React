@@ -56,7 +56,7 @@ const ProductsPage = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, minWidth:1000}}>
+    <Container maxWidth="lg" sx={{ mt: 12, minWidth: 1000 }}>
       <Box
         display="flex"
         justifyContent="space-between"

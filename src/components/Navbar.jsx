@@ -14,6 +14,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCart } from "../contexts/CartContext";
+import { Link, useLocation } from "react-router-dom";
+import Button from "@mui/material/Button";
 const theme = createTheme({
   typography: {
     fontFamily: ["OGG Regular", "Arial", "sans-serif"].join(","),
@@ -99,14 +101,19 @@ export default function PrimarySearchAppBar() {
             <Typography
               variant="h4"
               noWrap
-              component="div"
+              component={Link}
+              to="/"
               sx={{
                 flexGrow: 1,
                 letterSpacing: "4px",
                 fontWeight: 300,
                 textAlign: "center",
-                marginLeft: "480px",
+                marginLeft: "100px",
                 color: "#6F0936",
+                textDecoration: 'none',
+                '&:hover': {
+                  opacity: 0.8,
+                }
               }}
             >
               SATURN BEAUTY
@@ -126,6 +133,43 @@ export default function PrimarySearchAppBar() {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            
+            {/* Navegación */}
+            <Box sx={{ display: 'flex', marginLeft: '20px' }}>
+              <Button 
+                component={Link}
+                to="/"
+                sx={{ 
+                  color: useLocation().pathname === '/' ? '#6F0936' : '#6F0936',
+                  borderBottom: useLocation().pathname === '/' ? '2px solid #6F0936' : 'none',
+                  borderRadius: 0,
+                  padding: '6px 16px',
+                  fontWeight: useLocation().pathname === '/' ? 600 : 400,
+                  '&:hover': {
+                    backgroundColor: 'rgba(111, 9, 54, 0.04)',
+                  }
+                }}
+              >
+                INICIO
+              </Button>
+              <Button 
+                component={Link}
+                to="/productos"
+                sx={{ 
+                  color: useLocation().pathname === '/productos' ? '#6F0936' : '#6F0936',
+                  borderBottom: useLocation().pathname === '/productos' ? '2px solid #6F0936' : 'none',
+                  borderRadius: 0,
+                  padding: '6px 16px',
+                  fontWeight: useLocation().pathname === '/productos' ? 600 : 400,
+                  '&:hover': {
+                    backgroundColor: 'rgba(111, 9, 54, 0.04)',
+                  }
+                }}
+              >
+                PRODUCTOS
+              </Button>
+            </Box>
+            
             {/* Iconos derecha */}
             <Box
               sx={{
