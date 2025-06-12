@@ -16,6 +16,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CartDrawer from "./CartDrawer";
+import { useAuth } from "../hooks/useAuth";
+import AuthModal from "./auth/AuthModal";
 const theme = createTheme({
   typography: {
     fontFamily: ["OGG Regular", "Arial", "sans-serif"].join(","),
@@ -82,6 +84,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  const { user, openAuthModal } = useAuth();
+  const location = useLocation();
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -233,18 +237,41 @@ export default function PrimarySearchAppBar() {
               <IconButton
                 size="large"
                 edge="end"
-                aria-label="account of current user"
+                aria-label={user ? 'Ver perfil' : 'Iniciar sesión'}
                 color="inherit"
+                onClick={() => openAuthModal('login')}
                 sx={{
                   color: "#6F0936",
-                  "&:hover": {
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
                     backgroundColor: "#6F0936",
-                    color: "white"
+                    color: "white",
+                    transform: 'scale(1.1)'
                   },
                 }}
               >
-                <AccountCircle />
+                {user ? (
+                  <Box 
+                    sx={{ 
+                      width: 32, 
+                      height: 32, 
+                      borderRadius: '50%', 
+                      bgcolor: 'primary.main',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      fontSize: '0.875rem'
+                    }}
+                  >
+                    {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                  </Box>
+                ) : (
+                  <AccountCircle />
+                )}
               </IconButton>
+              <AuthModal />
             </Box>
           </Toolbar>
         </AppBar>

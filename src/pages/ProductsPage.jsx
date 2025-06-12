@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -7,8 +7,10 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  CircularProgress,
 } from "@mui/material";
 import Products from "../components/Products";
+import { useProductCategories, useProductFilter } from "../hooks/useProductCategories";
 import "../index.css";
 import { styled } from "@mui/material/styles";
 
@@ -43,9 +45,73 @@ const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
 const ProductsPage = () => {
   const [sortBy, setSortBy] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Ejemplo de categorías - ajustar según tus datos reales
-  const categories = ["skincare", "makeup", "tools", "lipcare"];
+  // Obtener categorías únicas de los productos
+  const { categories, loading: categoriesLoading, error: categoriesError } = useProductCategories(products);
+  
+  // Filtrar y ordenar productos
+  const { filteredAndSortedProducts, loading: filterLoading } = useProductFilter(products, {
+    category: filterCategory,
+    sortBy: sortBy
+  });
+
+  console.log('Products:', products);
+  console.log('Categories:', categories);
+  console.log('Filtered Products:', filteredAndSortedProducts);
+
+  // Cargar productos desde el archivo local
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        console.log('Iniciando carga de productos...');
+        
+        const response = await fetch('/productos.json', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        });
+        
+        console.log('Respuesta recibida:', response);
+        
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Productos cargados:', data);
+        
+        if (!Array.isArray(data)) {
+          throw new Error('Formato de datos inválido');
+        }
+        
+        setProducts(data);
+      } catch (err) {
+        console.error('Error al cargar productos:', err);
+        setError(`Error al cargar los productos: ${err.message}. Por favor, recarga la página.`);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+  
+  // Debug: mostrar estado actual
+  console.log('Estado actual:', {
+    isLoading,
+    categoriesLoading,
+    filterLoading,
+    productsLength: products.length,
+    categories,
+    filterCategory,
+    sortBy
+  });
 
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
@@ -54,6 +120,26 @@ const ProductsPage = () => {
   const handleFilterChange = (event) => {
     setFilterCategory(event.target.value);
   };
+
+  console.log('Loading states:', { isLoading, categoriesLoading, filterLoading });
+  
+  if (isLoading || categoriesLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+        <CircularProgress style={{ color: 'var(--color-primary)' }} />
+      </Box>
+    );
+  }
+
+  if (error || categoriesError) {
+    return (
+      <Box textAlign="center" p={4}>
+        <Typography color="error">
+          {error || 'Error al cargar las categorías'}
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Container maxWidth="lg" sx={{ mt: 12, minWidth: 1000 }}>
@@ -142,7 +228,10 @@ const ProductsPage = () => {
         </Box>
       </Box>
       
-      <Products sortBy={sortBy} filterCategory={filterCategory} />
+      <Products 
+        products={filteredAndSortedProducts} 
+        isLoading={filterLoading} 
+      />
       
     </Container>
   );

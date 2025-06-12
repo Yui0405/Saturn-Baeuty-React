@@ -1,41 +1,30 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Box, Typography } from "@mui/material";
+import React from "react";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import "../index.css";
 import CardComponent from "./CardComponent";
 
-const Products = ({ sortBy, filterCategory }) => {
-  const [products, setProducts] = useState([]);
+const Products = ({ products = [], isLoading = false }) => {
+  console.log('Products component - products:', products);
+  console.log('Products component - isLoading:', isLoading);
 
-  useEffect(() => {
-    fetch("/productos.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.error("Error cargando productos:", err));
-  }, []);
-  const processedProducts = useMemo(() => {
-    let filtered = products;
+  if (isLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+        <CircularProgress style={{ color: 'var(--color-primary)' }} />
+      </Box>
+    );
+  }
 
-    // Filtrado por categoría
-    if (filterCategory) {
-      filtered = filtered.filter(
-        (item) =>
-          item.category.toLowerCase().trim() ===
-          filterCategory.toLowerCase().trim()
-      );
-    }
-
-    // Ordenamiento
-    switch (sortBy) {
-      case "price-asc":
-        return [...filtered].sort((a, b) => a.price - b.price);
-      case "price-desc":
-        return [...filtered].sort((a, b) => b.price - a.price);
-      case "popularity":
-        return [...filtered].sort((a, b) => (b.rating || 0) - (a.rating || 0));
-      default:
-        return filtered;
-    }
-  }, [products, sortBy, filterCategory]);
+  if (!Array.isArray(products)) {
+    console.error('Products is not an array:', products);
+    return (
+      <Box textAlign="center" p={4}>
+        <Typography color="error">
+          Error: Los datos de productos no son válidos
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ px: 4, py: 6 }}>
@@ -47,13 +36,18 @@ const Products = ({ sortBy, filterCategory }) => {
           justifyContent: "center",
         }}
       >
-        
-        {processedProducts.map((product, index) => (
-          <CardComponent
-            key={index} 
-            product={product} 
-          />
-        ))}
+        {products.length > 0 ? (
+          products.map((product, index) => (
+            <CardComponent 
+              key={`${product.name}-${index}`} 
+              product={product} 
+            />
+          ))
+        ) : (
+          <Typography variant="h6" sx={{ mt: 4, textAlign: 'center', width: '100%' }}>
+            No se encontraron productos
+          </Typography>
+        )}
       </Box>
     </Box>
   );
