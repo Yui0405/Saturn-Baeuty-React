@@ -71,7 +71,6 @@ const TabPanel = ({ children, value, index, ...other }) => {
   );
 };
 
-// Esquemas de validación con Yup
 const loginSchema = yup.object().shape({
   email: yup
     .string()
@@ -113,7 +112,6 @@ const AuthModal = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [serverError, setServerError] = useState('');
 
-  // Configuración de React Hook Form
   const {
     register,
     handleSubmit,
@@ -126,7 +124,7 @@ const AuthModal = () => {
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
-    reset(); // Limpia el formulario al cambiar de pestaña
+    reset(); 
     setServerError('');
   };
 
@@ -134,22 +132,17 @@ const AuthModal = () => {
     try {
       setServerError('');
       
-      if (tabValue === 0) { // Login
-        // Aquí iría la lógica real de autenticación
+      if (tabValue === 0) {
         console.log('Iniciando sesión con:', data);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulamos una petición
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
         login({ email: data.email, name: data.name || 'Usuario' });
         closeAuthModal();
-      } else { // Registro
-        // Aquí iría la lógica real de registro
+      } else {
         console.log('Registrando usuario:', data);
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulamos una petición
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
         
-        // Cambiamos a la pestaña de login
         setTabValue(0);
-        // Mostramos un mensaje de éxito
         alert('¡Registro exitoso! Por favor inicia sesión.');
-        // Reseteamos el formulario
         reset();
       }
     } catch (error) {
@@ -435,7 +428,7 @@ const AuthModal = () => {
               boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
               '& .MuiButton-startIcon': {
                 '& svg': {
-                  color: 'white' // Change icon to white on hover
+                  color: 'white' 
                 }
               }
             },
@@ -443,7 +436,7 @@ const AuthModal = () => {
               marginRight: 1,
               transition: 'color 0.3s ease',
               '& svg': {
-                color: '#DB4437', // Google red color for the icon
+                color: '#DB4437', 
                 transition: 'color 0.3s ease'
               }
             }

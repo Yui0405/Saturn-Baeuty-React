@@ -29,7 +29,6 @@ const cartReducer = (state, action) => {
           notification: 'Cantidad actualizada'
         };
       }
-      // Si la cantidad es 1, eliminamos el producto
       return {
         ...state,
         items: state.items.filter(item => item.id !== action.id),
@@ -44,10 +43,9 @@ const cartReducer = (state, action) => {
       };
     }
     case 'ADD_ITEM': {
-      // Usar el nombre como ID si no hay un ID definido
       const itemWithId = {
         ...action.item,
-        id: action.item.id || action.item.name // Usar el ID si existe, si no, usar el nombre
+        id: action.item.id || action.item.name 
       };
       
       const existingItem = state.items.find(item => item.id === itemWithId.id);

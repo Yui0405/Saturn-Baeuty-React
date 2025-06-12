@@ -186,7 +186,6 @@ export const CartDrawer = () => {
                           alt={item.name || 'Producto'} 
                           style={{ width: 50, height: 50, marginRight: 16, objectFit: 'cover' }}
                           onError={(e) => {
-                            // Manejar errores de carga de imagen
                             e.target.style.display = 'none';
                           }}
                         />

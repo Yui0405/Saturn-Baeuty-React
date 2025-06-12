@@ -14,7 +14,6 @@ import { useProductCategories, useProductFilter } from "../hooks/useProductCateg
 import "../index.css";
 import { styled } from "@mui/material/styles";
 
-// Estilo personalizado para los selectores
 const CustomSelect = styled(Select)(({ theme }) => ({
   "& .MuiOutlinedInput-notchedOutline": {
     borderColor: "var(--color-primary)",
@@ -49,10 +48,8 @@ const ProductsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Obtener categorías únicas de los productos
   const { categories, loading: categoriesLoading, error: categoriesError } = useProductCategories(products);
   
-  // Filtrar y ordenar productos
   const { filteredAndSortedProducts, loading: filterLoading } = useProductFilter(products, {
     category: filterCategory,
     sortBy: sortBy
@@ -62,7 +59,6 @@ const ProductsPage = () => {
   console.log('Categories:', categories);
   console.log('Filtered Products:', filteredAndSortedProducts);
 
-  // Cargar productos desde el archivo local
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -102,7 +98,6 @@ const ProductsPage = () => {
     fetchProducts();
   }, []);
   
-  // Debug: mostrar estado actual
   console.log('Estado actual:', {
     isLoading,
     categoriesLoading,

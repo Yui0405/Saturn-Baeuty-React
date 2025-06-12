@@ -73,7 +73,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -116,7 +115,6 @@ export default function PrimarySearchAppBar() {
               width: '100%'
             }}
           >
-            {/* Título a la izquierda */}
             <Typography
               variant="h4"
               noWrap
@@ -138,7 +136,6 @@ export default function PrimarySearchAppBar() {
               Saturn Beauty
             </Typography>
 
-            {/* Navegación al centro */}
             <Box sx={{ 
               display: 'flex', 
               position: 'absolute',
@@ -186,12 +183,11 @@ export default function PrimarySearchAppBar() {
               </Button>
             </Box>
             
-            {/* Búsqueda e íconos a la derecha */}
             <Box sx={{ 
               display: 'flex', 
               alignItems: 'center',
               gap: 2,
-              marginRight: '16px' // Añadir margen derecho para evitar que los iconos se oculten
+              marginRight: '16px' 
             }}>
               <Search
                 sx={{
@@ -249,7 +245,6 @@ export default function PrimarySearchAppBar() {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              {/* Componente del carrito */}
               <CartDrawer />
               <IconButton
                 size="large"

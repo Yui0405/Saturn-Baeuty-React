@@ -40,7 +40,7 @@ const CardComponent = ({ product }) => {
             color: 'var(--color-primary)',
           }} 
           variant="outlined"
-          onClick={handleAddToCart}  // Añadir handler de clic
+          onClick={handleAddToCart} 
         >
           Agregar al carrito
         </Button>

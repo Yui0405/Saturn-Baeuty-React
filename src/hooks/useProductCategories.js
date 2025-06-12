@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-// Hook para extraer categorías únicas de los productos
 export const useProductCategories = (products = []) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,7 +18,6 @@ export const useProductCategories = (products = []) => {
   return { categories, loading, error };
 };
 
-// Hook para filtrar productos por categoría
 export const useProductsByCategory = (products = [], categoryId = '') => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,7 +46,6 @@ export const useProductsByCategory = (products = [], categoryId = '') => {
 };
 
 export const useProductFilter = (products = [], { category = '', sortBy = '' } = {}) => {
-  // Extraer categorías únicas para el filtro
   const categories = (() => {
     const uniqueCategories = new Set();
     products.forEach(product => {
@@ -59,13 +56,11 @@ export const useProductFilter = (products = [], { category = '', sortBy = '' } =
     return Array.from(uniqueCategories);
   })();
 
-  // Filtrar y ordenar productos
   const filterAndSortProducts = () => {
     if (!Array.isArray(products)) return [];
     
     let result = [...products];
 
-    // Aplicar filtro por categoría
     if (category) {
       result = result.filter(product => 
         product && 
@@ -74,7 +69,6 @@ export const useProductFilter = (products = [], { category = '', sortBy = '' } =
       );
     }
 
-    // Aplicar ordenación
     if (sortBy) {
       const sortedResult = [...result];
       switch (sortBy) {
@@ -85,7 +79,6 @@ export const useProductFilter = (products = [], { category = '', sortBy = '' } =
         case 'popularity':
           return sortedResult.sort((a, b) => (b.rating || 0) - (a.rating || 0));
         default:
-          // Orden por defecto (nombre ascendente)
           return sortedResult.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
       }
     }
