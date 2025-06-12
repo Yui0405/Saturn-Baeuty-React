@@ -68,7 +68,19 @@ const FeaturedProducts = () => {
       </Typography>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-        <IconButton onClick={prev}>
+        <IconButton 
+          onClick={prev}
+          sx={{
+            color: 'var(--color-primary)',
+            '&:focus': { outline: 'none' },
+            '&:hover': {
+              backgroundColor: 'var(--color-primary)',
+              color: 'white',
+              transform: 'scale(1.1)'
+            },
+            transition: 'all 0.3s ease'
+          }}
+        >
           <ArrowBackIos />
         </IconButton>
 
@@ -86,7 +98,19 @@ const FeaturedProducts = () => {
           ))}
         </Box>
 
-        <IconButton onClick={next}>
+        <IconButton 
+          onClick={next}
+          sx={{
+            color: 'var(--color-primary)',
+            '&:focus': { outline: 'none' },
+            '&:hover': {
+              backgroundColor: 'var(--color-primary)',
+              color: 'white',
+              transform: 'scale(1.1)'
+            },
+            transition: 'all 0.3s ease'
+          }}
+        >
           <ArrowForwardIos />
         </IconButton>
       </Box>

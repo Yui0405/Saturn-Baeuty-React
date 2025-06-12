@@ -11,11 +11,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useCart } from "../contexts/CartContext";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
+import CartDrawer from "./CartDrawer";
 const theme = createTheme({
   typography: {
     fontFamily: ["OGG Regular", "Arial", "sans-serif"].join(","),
@@ -28,6 +28,22 @@ const theme = createTheme({
       primary: "#ffffff",
     },
   },
+  components: {
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&:focus': {
+            outline: 'none',
+            boxShadow: 'none',
+          },
+          '&:focus-visible': {
+            outline: 'none',
+            boxShadow: 'none',
+          }
+        }
+      }
+    }
+  }
 });
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -66,12 +82,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  const { cart } = useCart();
-  const totalItems = cart.items.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
-
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -140,13 +150,16 @@ export default function PrimarySearchAppBar() {
                 component={Link}
                 to="/"
                 sx={{ 
-                  color: useLocation().pathname === '/' ? '#6F0936' : '#6F0936',
+                  color: '#6F0936',
                   borderBottom: useLocation().pathname === '/' ? '2px solid #6F0936' : 'none',
                   borderRadius: 0,
                   padding: '6px 16px',
                   fontWeight: useLocation().pathname === '/' ? 600 : 400,
+                  transition: 'all 0.3s ease',
                   '&:hover': {
-                    backgroundColor: 'rgba(111, 9, 54, 0.04)',
+                    backgroundColor: '#6F0936',
+                    color: 'white',
+                    transform: 'scale(1.05)'
                   }
                 }}
               >
@@ -156,13 +169,16 @@ export default function PrimarySearchAppBar() {
                 component={Link}
                 to="/productos"
                 sx={{ 
-                  color: useLocation().pathname === '/productos' ? '#6F0936' : '#6F0936',
+                  color: '#6F0936',
                   borderBottom: useLocation().pathname === '/productos' ? '2px solid #6F0936' : 'none',
                   borderRadius: 0,
                   padding: '6px 16px',
                   fontWeight: useLocation().pathname === '/productos' ? 600 : 400,
+                  transition: 'all 0.3s ease',
                   '&:hover': {
-                    backgroundColor: 'rgba(111, 9, 54, 0.04)',
+                    backgroundColor: '#6F0936',
+                    color: 'white',
+                    transform: 'scale(1.05)'
                   }
                 }}
               >
@@ -175,81 +191,61 @@ export default function PrimarySearchAppBar() {
               sx={{
                 display: { xs: "none", md: "flex" },
                 gap: 1,
-                marginRight: "16px", // Espaciado final
+                marginRight: "16px",
                 color: "#6F0936",
+                alignItems: 'center'
               }}
             >
               <IconButton
                 size="large"
                 color="inherit"
                 sx={{
-                  transition: "background-color 0.3s ease", // Transición suave
+                  transition: "background-color 0.3s ease",
+                  color: "#6F0936",
                   "&:hover": {
-                    backgroundColor: "#6F0936", // Fondo al hacer hover
+                    backgroundColor: "#6F0936",
+                    color: "white"
                   },
                 }}
               >
                 <Badge badgeContent={4} color="error">
-                  <MailIcon sx={{ fontSize: 28 }} />
+                  <MailIcon />
                 </Badge>
               </IconButton>
-
               <IconButton
                 size="large"
+                aria-label="show notifications"
                 color="inherit"
                 sx={{
-                  transition: "background-color 0.3s ease", // Transición suave
+                  color: "#6F0936",
                   "&:hover": {
-                    backgroundColor: "#6F0936", // Fondo al hacer hover
+                    backgroundColor: "#6F0936",
+                    color: "white"
                   },
                 }}
               >
                 <Badge badgeContent={17} color="error">
-                  <NotificationsIcon sx={{ fontSize: 28 }} />
+                  <NotificationsIcon />
                 </Badge>
               </IconButton>
-
+              {/* Componente del carrito */}
+              <CartDrawer />
               <IconButton
                 size="large"
                 edge="end"
+                aria-label="account of current user"
                 color="inherit"
                 sx={{
-                  transition: "background-color 0.3s ease", // Transición suave
+                  color: "#6F0936",
                   "&:hover": {
-                    backgroundColor: "#6F0936", // Fondo al hacer hover
+                    backgroundColor: "#6F0936",
+                    color: "white"
                   },
                 }}
               >
-                <AccountCircle sx={{ fontSize: 32 }} />
+                <AccountCircle />
               </IconButton>
             </Box>
-            <IconButton
-              size="large"
-              color="inherit"
-              sx={{
-                transition: "background-color 0.3s ease",
-                "&:hover": {
-                  backgroundColor: "#6F0936",
-                  "& .MuiSvgIcon-root": {
-                    color: "#FFFFFF",
-                  },
-                },
-              }}
-            >
-              <Badge
-                badgeContent={totalItems}
-                color="error"
-                sx={{
-                  "& .MuiBadge-badge": {
-                    right: -3,
-                    top: 5,
-                    padding: "0 4px",
-                  },
-                }}
-              >
-                <ShoppingCartIcon sx={{ fontSize: 28, color: "#6F0936" }} />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
