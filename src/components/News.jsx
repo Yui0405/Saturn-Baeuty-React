@@ -24,6 +24,12 @@ const Noticias = () => {
             fontFamily: "Playfair Display",
             color: "var(--color-primary)",
             mb: 4,
+            fontWeight: 400,
+            letterSpacing: '1px',
+            fontSize: '3rem',
+            '@media (max-width: 600px)': {
+              fontSize: '1.5rem'
+            }
           }}
           gutterBottom
         >
@@ -56,6 +62,9 @@ const Noticias = () => {
                 width: "100%",
                 fontFamily: "Playfair Display",
                 color: "var(--color-primary)",
+                fontWeight: 600,
+                fontSize: '1.25rem',
+                lineHeight: 1.2
               }}
             >
               Soft Pinch Liquid Blush: El Rubor Líquido que Revoluciona el
@@ -64,9 +73,10 @@ const Noticias = () => {
 
             <Typography
               sx={{
-                fontFamily: "Playfair Display",
+                fontFamily: "Poppins, sans-serif",
                 color: "var(--color-primary)",
                 textAlign: "justify",
+                lineHeight: 1.6
               }}
               variant="body2"
             >

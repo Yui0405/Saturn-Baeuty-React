@@ -110,55 +110,51 @@ export default function PrimarySearchAppBar() {
               paddingLeft: 0,
               paddingRight: 0,
               minHeight: "64px",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%'
             }}
           >
+            {/* Título a la izquierda */}
             <Typography
               variant="h4"
               noWrap
               component={Link}
               to="/"
               sx={{
-                flexGrow: 1,
-                letterSpacing: "4px",
-                fontWeight: 300,
-                textAlign: "center",
-                marginLeft: "100px",
+                fontFamily: '"Dancing Script", cursive',
+                fontSize: '2.5rem',
+                letterSpacing: "2px",
+                fontWeight: 600,
                 color: "#6F0936",
                 textDecoration: 'none',
+                flexShrink: 0,
                 '&:hover': {
                   opacity: 0.8,
                 }
               }}
             >
-              SATURN BEAUTY
+              Saturn Beauty
             </Typography>
-            {/* Barra de búsqueda - Reducir margen derecho */}
-            <Search
-              sx={{
-                color: "#6F0936",
-                borderBottom: "solid 1px #6F0936",
-              }}
-            >
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Buscar…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-            
-            {/* Navegación */}
-            <Box sx={{ display: 'flex', marginLeft: '20px' }}>
+
+            {/* Navegación al centro */}
+            <Box sx={{ 
+              display: 'flex', 
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              gap: 1
+            }}>
               <Button 
                 component={Link}
                 to="/"
                 sx={{ 
                   color: '#6F0936',
-                  borderBottom: useLocation().pathname === '/' ? '2px solid #6F0936' : 'none',
+                  borderBottom: location.pathname === '/' ? '2px solid #6F0936' : 'none',
                   borderRadius: 0,
                   padding: '6px 16px',
-                  fontWeight: useLocation().pathname === '/' ? 600 : 400,
+                  fontWeight: location.pathname === '/' ? 600 : 400,
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     backgroundColor: '#6F0936',
@@ -174,10 +170,10 @@ export default function PrimarySearchAppBar() {
                 to="/productos"
                 sx={{ 
                   color: '#6F0936',
-                  borderBottom: useLocation().pathname === '/productos' ? '2px solid #6F0936' : 'none',
+                  borderBottom: location.pathname === '/productos' ? '2px solid #6F0936' : 'none',
                   borderRadius: 0,
                   padding: '6px 16px',
-                  fontWeight: useLocation().pathname === '/productos' ? 600 : 400,
+                  fontWeight: location.pathname === '/productos' ? 600 : 400,
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     backgroundColor: '#6F0936',
@@ -190,16 +186,37 @@ export default function PrimarySearchAppBar() {
               </Button>
             </Box>
             
-            {/* Iconos derecha */}
-            <Box
-              sx={{
-                display: { xs: "none", md: "flex" },
-                gap: 1,
-                marginRight: "16px",
-                color: "#6F0936",
-                alignItems: 'center'
-              }}
-            >
+            {/* Búsqueda e íconos a la derecha */}
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center',
+              gap: 2,
+              marginRight: '16px' // Añadir margen derecho para evitar que los iconos se oculten
+            }}>
+              <Search
+                sx={{
+                  color: "#6F0936",
+                  borderBottom: "solid 1px #6F0936",
+                }}
+              >
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Buscar…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+              
+              <Box 
+                sx={{ 
+                  display: { xs: "none", md: "flex" }, 
+                  gap: 1,
+                  marginRight: "16px",
+                  color: "#6F0936",
+                  alignItems: 'center'
+                }}
+              >
               <IconButton
                 size="large"
                 color="inherit"
@@ -273,9 +290,10 @@ export default function PrimarySearchAppBar() {
               </IconButton>
               <AuthModal />
             </Box>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </ThemeProvider>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  </ThemeProvider>
   );
 }

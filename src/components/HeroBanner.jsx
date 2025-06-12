@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const HeroBanner = () => {
   return (
@@ -42,18 +43,24 @@ const HeroBanner = () => {
         <Typography variant="body2" sx={{ mb: 2 }}>
           Mejora la claridad de tu piel con Cherry Dub BHA Toner.
         </Typography>
-        <Button fullWidth sx={{ 
-                    mt: 1 ,
-                    borderRadius: 0,
-                    backgroundColor:'var(--color-background)',
-                    color:'var(--color-primary)',
-                    fontWeight:'bold',
-                    border: '1px solid transparent', 
-                    '&:hover':{
-                      border: '1px solid #FFFFFF',
-                      
-                    }
-                    }} >
+        <Button 
+          component={Link}
+          to="/productos"
+          fullWidth 
+          sx={{ 
+            mt: 1,
+            borderRadius: 0,
+            backgroundColor: 'var(--color-background)',
+            color: 'var(--color-primary)',
+            fontWeight: 'bold',
+            border: '1px solid transparent', 
+            '&:hover': {
+              border: '1px solid #FFFFFF',
+              backgroundColor: 'var(--color-background)',
+              opacity: 0.9
+            }
+          }}
+        >
           Comprar ahora
         </Button>
       </Box>

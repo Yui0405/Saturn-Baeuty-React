@@ -111,7 +111,7 @@ export const CartDrawer = () => {
                 mb: 2
               }}
             >
-              MI CARRITO
+              Mi Carrito
             </Typography>
             <IconButton 
               onClick={toggleDrawer(false)}
